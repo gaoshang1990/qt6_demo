@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "manual": "https://code.visualstudio.com/docs/cpp/launch-json-reference",
+    "configurations": [
+        {
+            "name": "C++ Launch (Windows)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/win32/Debug/qt6_demo.exe",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/win32",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "C:/Qt/6.8.0/msvc2022_64/bin;${env:PATH}"
+                }
+            ],
+            "console": "integratedTerminal",
+            "logging": {
+                "moduleLoad": false,
+                "trace": true
+            },
+            "preLaunchTask": "build_win32"
+        }
+    ]
+}

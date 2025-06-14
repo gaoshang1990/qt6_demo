@@ -1,0 +1,9 @@
+#ifndef _VERSION_H___
+#define _VERSION_H___
+
+#define APP_VERSION      "@GIT_SEMVER@"
+#define APP_FULL_VERSION "@GIT_SEMVER@.@GIT_DESCRIBE@"
+#define GIT_COMMIT_COUNT "@GIT_COMMIT_COUNT@"
+#define GIT_COMMIT_HASH  "@GIT_DESCRIBE@"
+
+#endif /* _VERSION_H___ */

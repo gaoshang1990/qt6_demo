@@ -1,0 +1,7 @@
+.vscode/settings.json
+.qmlls.ini
+CMakeLists.txt.user
+
+build/
+
+src/app/version.h

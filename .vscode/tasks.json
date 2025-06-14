@@ -1,0 +1,80 @@
+{
+    "version": "2.0.0",
+    "manual": "https://code.visualstudio.com/docs/editor/tasks",
+    "tasks": [
+        {
+            "label": "cmake_win32",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build/win32"
+            },
+            "command": "cmake",
+            "args": [
+                "../..",
+                "-G",
+                "Visual Studio 17 2022",
+                "-DCMAKE_PREFIX_PATH=C:/Qt/6.8.0/msvc2022_64"
+            ],
+            "group": "build",
+        },
+        {
+            "label": "build_win32",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build/win32"
+            },
+            "command": "cmake --build .",
+            "group": "build",
+            "dependsOn": [
+                "cmake_win32"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "cmake_android",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build/mingw"
+            },
+            "command": [
+                "cmake"
+            ],
+            "args": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_TOOLCHAIN_FILE:STRING=cmake/arm-gcc-toolchain.cmake",
+                "../..",
+                "-G",
+                "MinGW Makefiles"
+            ],
+            "group": "build",
+        },
+        {
+            "label": "build_mingw",
+            "type": "process",
+            "options": {
+                "cwd": "${workspaceFolder}/build/mingw"
+            },
+            "command": "mingw32-make",
+            "group": "build",
+            "dependsOn": [
+                "cmake_mingw"
+            ],
+        },
+        {
+            "label": "mkdir",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "${workspaceFolder}/build,${workspaceFolder}/build/andriod,${workspaceFolder}/build/win32,${workspaceFolder}/build/mingw"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "${workspaceFolder}/clean.bat",
+            "group": "build"
+        }
+    ]
+}
