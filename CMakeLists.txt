@@ -45,6 +45,7 @@ find_files_dirs(user_dirs_lib "${user_files_lib}" RELATIVE)
 find_files_dirs(user_dirs_inc "${user_files_h}; ${user_files_hpp}" RELATIVE)
 list(APPEND user_dirs_inc "src/third_party")
 
+# qt_add_executable(${PROJECT_NAME} WIN32
 qt_add_executable(${PROJECT_NAME}
     ${user_files_c}
     ${user_files_cpp}

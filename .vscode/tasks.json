@@ -31,6 +31,19 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build_release",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/build/win32"
+            },
+            "command": "cmake --build . --config Release",
+            "group": "build",
+            "dependsOn": [
+                "cmake_win32"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "cmake_android",
             "type": "shell",
             "options": {
@@ -74,6 +87,16 @@
             "label": "clean",
             "type": "shell",
             "command": "${workspaceFolder}/clean.bat",
+            "group": "build"
+        },
+        {
+            "label": "windeployqt_win32",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "$exeFiles = Get-ChildItem -Path '${workspaceFolder}/build/win32/Release' -Filter '*.exe'; if ($exeFiles.Count -gt 0) { $exeFiles | ForEach-Object { Write-Host \"Deploying: $($_.Name)\"; & 'C:/Qt/6.8.0/msvc2022_64/bin/windeployqt.exe' --qmldir '${workspaceFolder}/res/qml' $_.FullName --release } } else { Write-Host 'No exe files found in Release directory' }"
+            ],
             "group": "build"
         }
     ]
