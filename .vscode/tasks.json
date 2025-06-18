@@ -25,9 +25,7 @@
             },
             "command": "cmake --build .",
             "group": "build",
-            "dependsOn": [
-                "cmake_win32"
-            ],
+            "dependsOn": [],
             "problemMatcher": "$msCompile"
         },
         {
@@ -69,9 +67,7 @@
             },
             "command": "mingw32-make",
             "group": "build",
-            "dependsOn": [
-                "cmake_mingw"
-            ],
+            "dependsOn": [],
         },
         {
             "label": "mkdir",
