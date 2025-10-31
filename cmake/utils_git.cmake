@@ -80,7 +80,7 @@ function(git_version_string _var)
     # 计算版本号
     # 每100次提交，次版本号加1
     # 每1000次提交(次版本号超过9)，主版本号加1
-    math(EXPR MAJOR "1 + (${COMMITS} / 1000)")
+    math(EXPR MAJOR "${COMMITS} / 1000")
     math(EXPR MINOR "(${COMMITS} / 100) % 10")
     math(EXPR PATCH "${COMMITS} % 100")
     
