@@ -20,7 +20,7 @@
                 "moduleLoad": false,
                 "trace": true
             },
-            "preLaunchTask": "build_win32"
+            "preLaunchTask": "build_win32d"
         }
     ]
 }
