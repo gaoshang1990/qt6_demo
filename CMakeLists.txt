@@ -29,7 +29,7 @@ recurse_auto_sources(user_files_qrc "*.qrc" "res/" RELATIVE)
 recurse_auto_sources(user_files_qml "*.qml" "res/" RELATIVE)
 
 if (MSVC)
-    recurse_auto_sources(user_files_lib "*.lib" "src/" RELATIVE)
+    recurse_auto_sources(user_files_lib "*.lib" "src/")
 else ()
     recurse_auto_sources(user_files_lib "*.so" "src/" RELATIVE)
     recurse_auto_sources(user_files_lib "*.a"  "src/" RELATIVE)
@@ -58,6 +58,7 @@ qt_add_qml_module(${PROJECT_NAME}
     QML_FILES
         ${user_files_qml}
     SOURCES
+        # 添加 qml 相关的 C++ 源文件
     RESOURCES
         ${user_files_qrc}
 )
