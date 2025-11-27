@@ -3,6 +3,15 @@
     "manual": "https://code.visualstudio.com/docs/editor/tasks",
     "tasks": [
         {
+            "label": "make_version",
+            "type": "shell",
+            "command": "${workspaceFolder}/make_version.bat",
+            "args": [
+                "${workspaceFolder}/src/app"
+            ],
+            "group": "build"
+        },
+        {
             "label": "cmake_win32",
             "type": "shell",
             "options": {
@@ -25,7 +34,9 @@
             },
             "command": "cmake --build .",
             "group": "build",
-            "dependsOn": [],
+            "dependsOn": [
+                "make_version"
+            ],
             "problemMatcher": "$msCompile"
         },
         {

@@ -18,6 +18,10 @@ applyTo: '**'
 
 - All terminal commands should run in powershell, not bash.
 
+- run vsc task "build_win32d" to build debug version on windows.
+
+- run vsc task "cmake_win32" to generate build files for windows.
+
 ### Dialogue
 
 - Use chinese for all dialogue. 
