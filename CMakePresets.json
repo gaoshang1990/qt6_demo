@@ -1,0 +1,171 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 26,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "win32",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/win32",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            },
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_PREFIX_PATH": "C:/Qt/6.8.0/msvc2022_64",
+                "Qt6_DIR": "C:/Qt/6.5.0/msvc2019_64/lib/cmake/Qt6"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "android",
+            "generator": "MinGW Makefiles",
+            "binaryDir": "${sourceDir}/build/android",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_BUILD_TYPE": "Release",
+                "VCPKG_TARGET_TRIPLET": "arm64-android"
+            }
+        },
+        {
+            "name": "mingw",
+            "generator": "MinGW Makefiles",
+            "binaryDir": "${sourceDir}/build/mingw",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_BUILD_TYPE": "Release",
+                "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/triplets/community/aarch64-none-linux-gnu-gcc-toolchain.cmake",
+                "VCPKG_TARGET_TRIPLET": "aarch64-linux"
+            }
+        },
+        {
+            "name": "linux",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/linux",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "win32-debug",
+            "configurePreset": "win32",
+            "configuration": "Debug",
+            "jobs": 4
+        },
+        {
+            "name": "win32-release",
+            "configurePreset": "win32",
+            "configuration": "Release",
+            "jobs": 4
+        },
+        {
+            "name": "android",
+            "configurePreset": "mingw",
+            "jobs": 4
+        },
+        {
+            "name": "mingw",
+            "configurePreset": "mingw",
+            "jobs": 4
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "win32-debug",
+            "displayName": "测试 Windows x64 Debug",
+            "configurePreset": "win32",
+            "configuration": "Debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "ignore",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "win32-release",
+            "displayName": "测试 Windows x64 Release",
+            "configurePreset": "win32",
+            "configuration": "Release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "ignore",
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux",
+            "displayName": "测试 Linux Release",
+            "configurePreset": "linux",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "ignore",
+                "stopOnFailure": false
+            }
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "win32-debug",
+            "displayName": "Windows Debug 完整工作流",
+            "description": "配置、构建和测试 Windows Debug 版本",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "win32"
+                },
+                {
+                    "type": "build",
+                    "name": "win32-debug"
+                },
+                {
+                    "type": "test",
+                    "name": "win32-debug"
+                }
+            ]
+        },
+        {
+            "name": "win32-release",
+            "displayName": "Windows Release 完整工作流",
+            "description": "配置、构建和测试 Windows Release 版本",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "win32"
+                },
+                {
+                    "type": "build",
+                    "name": "win32-release"
+                },
+                {
+                    "type": "test",
+                    "name": "win32-release"
+                }
+            ]
+        }
+    ]
+}

@@ -14,59 +14,42 @@
         {
             "label": "cmake_win32",
             "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build/win32"
-            },
             "command": "cmake",
             "args": [
-                "../..",
-                "-G",
-                "Visual Studio 17 2022",
-                "-DCMAKE_PREFIX_PATH=C:/Qt/6.8.0/msvc2022_64"
+                "--preset win32"
             ],
             "group": "build",
         },
         {
             "label": "build_win32d",
             "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build/win32"
-            },
-            "command": "cmake --build .",
-            "group": "build",
-            "dependsOn": [
-                "make_version"
+            "command": "cmake",
+            "args": [
+                "--build",
+                "--preset win32-debug"
             ],
+            "group": "build",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "build_win32",
             "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build/win32"
-            },
-            "command": "cmake --build . --config Release",
-            "group": "build",
-            "dependsOn": [
-                "cmake_win32"
+            "command": "cmake",
+            "args": [
+                "--build",
+                "--preset win32-release"
             ],
+            "group": "build",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "cmake_android",
             "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/build/mingw"
-            },
             "command": [
                 "cmake"
             ],
             "args": [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_TOOLCHAIN_FILE:STRING=cmake/arm-gcc-toolchain.cmake",
-                "../..",
-                "-G",
-                "MinGW Makefiles"
+                "--preset android"
             ],
             "group": "build",
         },
