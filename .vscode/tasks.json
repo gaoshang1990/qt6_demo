@@ -5,7 +5,7 @@
         {
             "label": "make_version",
             "type": "shell",
-            "command": "${workspaceFolder}/make_version.bat",
+            "command": "${workspaceFolder}/script/make_version.bat",
             "args": [
                 "${workspaceFolder}/src/app"
             ],
@@ -86,14 +86,14 @@
             "command": "mkdir",
             "args": [
                 "-p",
-                "${workspaceFolder}/build,${workspaceFolder}/build/andriod,${workspaceFolder}/build/win32,${workspaceFolder}/build/mingw"
+                "${workspaceFolder}/build,${workspaceFolder}/build/android,${workspaceFolder}/build/win32,${workspaceFolder}/build/mingw"
             ],
             "group": "build"
         },
         {
             "label": "clean",
             "type": "shell",
-            "command": "${workspaceFolder}/clean.bat",
+            "command": "${workspaceFolder}/script/clean.bat",
             "group": "build"
         },
         {
