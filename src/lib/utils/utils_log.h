@@ -29,21 +29,15 @@ enum {
  */
 int mlog_init(int id, int level, const char* file_dir, const char* file_name);
 
-int  mlog_set_level(int id, int level);
-void mlog_enable_color(int id, bool enable);
-void mlog_enable_console(int id, bool enable);
+void mlog_set_level(int id, int level);
+void mlog_enable_color(bool enable);
+void mlog_enable_console(bool enable);
 
 void mlog_write(int id, int level, bool is_raw, const char* file, int line, const char* fmt, ...);
 
-int print_buf(int level, uint8_t* buf, uint16_t buf_len);
-int print_app_info(const char* name, const char* version, const char* date, const char* time);
-
 #define slog_init(level, dir, file)   mlog_init(MLOG_ID_DEFAULT, level, dir, file)
 #define slog_set_level(level)         mlog_set_level(MLOG_ID_DEFAULT, level)
-#define slog_enable_color(enable)     mlog_enable_color(MLOG_ID_DEFAULT, enable)
-#define slog_enable_console(enable)   mlog_enable_console(MLOG_ID_DEFAULT, enable)
 #define slog_app_info(name, version)  print_app_info(name, version, __DATE__, __TIME__)
-
 
 /*!
  * Multiton mode:
@@ -69,7 +63,7 @@ int print_app_info(const char* name, const char* version, const char* date, cons
 /*!
  * singleton mode:
  * slog_init("./log", "mlog.log", M_TRACE);
- * slog_init("slog ERROR TEST");
+ * slog_error("slog ERROR TEST");
  */
 #define slog(level, fmt, ...)         mlog__(MLOG_ID_DEFAULT, level, fmt, ##__VA_ARGS__)
 #define slog_trace(fmt, ...)          slog(M_TRACE, fmt, ##__VA_ARGS__)
@@ -85,6 +79,13 @@ int print_app_info(const char* name, const char* version, const char* date, cons
 #define slog_warn_raw(fmt, ...)       slog_raw(M_WARN, fmt, ##__VA_ARGS__)
 #define slog_error_raw(fmt, ...)      slog_raw(M_ERROR, fmt, ##__VA_ARGS__)
 
+int print_buf(int level, uint8_t* buf, uint32_t buf_len);
+int print_app_info(const char* name, const char* version, const char* date, const char* time);
+
+/**
+ * @brief   获取当前库版本字符串: major.minor.patch.githash
+ */
+const char* util_version(void);
 
 #ifdef __cplusplus
 }
