@@ -27,9 +27,15 @@ recurse_auto_sources(user_files_h   "*.h"   "src/" RELATIVE)
 recurse_auto_sources(user_files_hpp "*.hpp" "src/" RELATIVE)
 recurse_auto_sources(user_files_qrc "*.qrc" "res/" RELATIVE)
 recurse_auto_sources(user_files_qml "*.qml" "res/" RELATIVE)
+recurse_auto_sources(user_files_js  "*.js"  "res/" RELATIVE)
+
 
 if (MSVC)
     recurse_auto_sources(user_files_lib "*.lib" "src/")
+
+    add_compile_options(/utf-8)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -NODEFAULTLIB:MSVCRT -SAFESEH:NO")
 else ()
     recurse_auto_sources(user_files_lib "*.so" "src/" RELATIVE)
     recurse_auto_sources(user_files_lib "*.a"  "src/" RELATIVE)
@@ -53,6 +59,14 @@ qt_add_executable(${PROJECT_NAME}
     ${user_files_hpp}
 )
 
+if (MSVC)
+    target_link_options(${PROJECT_NAME} PRIVATE
+        "$<$<CONFIG:Debug>:/SUBSYSTEM:CONSOLE>"
+        "$<$<NOT:$<CONFIG:Debug>>:/SUBSYSTEM:WINDOWS>"
+        "$<$<NOT:$<CONFIG:Debug>>:/ENTRY:mainCRTStartup>"
+    )
+endif ()
+
 qt_add_qml_module(${PROJECT_NAME}
     URI UserCom
     QML_FILES
@@ -61,6 +75,7 @@ qt_add_qml_module(${PROJECT_NAME}
         # 添加 qml 相关的 C++ 源文件
     RESOURCES
         ${user_files_qrc}
+        ${user_files_js}
 )
 
 # 添加链接库, 库文件目录, 头文件目录
